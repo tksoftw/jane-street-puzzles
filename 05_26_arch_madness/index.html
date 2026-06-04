@@ -84,10 +84,17 @@
       color: #20242a;
     }
 
-    .tk-link {
+    .corner {
       position: fixed;
       right: 20px;
       bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .tk-link {
       color: #20242a;
       text-decoration: none;
       font-size: 0.85rem;
@@ -98,16 +105,21 @@
       text-decoration: underline;
     }
 
-    .tk-link p {
-      margin: 0;
+    @media (max-width: 600px) {
+    .corner {
+      right: 0;
+      bottom: 60%;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 4px;
+      white-space: nowrap;
+      transform: rotate(-90deg);
+      transform-origin: bottom right;
     }
 
-    @media (max-width: 600px) {
-    .tk-link {
-      right: 0;
-      bottom: 30%;
-      transform: translateY(30%) rotate(-90deg);
-      transform-origin: bottom right;
+    /* nudge only the js line up — increase to push it further from tk */
+    .corner .js {
+      transform: translateX(10em);
     }
   }
   </style>
@@ -128,8 +140,9 @@
       <span class="label">Puzzle</span>
     </a>
   </nav>
-  <a class="tk-link" href="https://github.com/tksoftw" target="_blank">
-    <p>made with 💗 by tk</p>
-  </a>
+  <div class="corner">
+    <a class="tk-link" href="https://github.com/tksoftw" target="_blank">made with 💗 by tk</a>
+    <a class="tk-link js" href="https://www.janestreet.com/puzzles/arch-madness-index/" target="_blank">original puzzle by jane street</a>
+  </div>
 </body>
 </html>
