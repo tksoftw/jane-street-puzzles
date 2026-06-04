@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Arc Region Puzzles</title>
+  <title>Arch Madness</title>
   <script>localStorage.removeItem("arcboard_mode");</script>
   <style>
     :root {
@@ -39,7 +39,7 @@
       justify-content: center;
     }
 
-    a {
+    nav a {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -55,17 +55,17 @@
       transition-property: box-shadow, transform, border-color;
     }
 
-    a:hover {
+    nav a:hover {
       border-color: #1f6f8b;
       box-shadow: 0 8px 28px rgba(31, 111, 139, 0.18);
       transform: translateY(-2px);
     }
 
-    a:active {
+    nav a:active {
       transform: translateY(0);
     }
 
-    a img {
+    nav a img {
       width: 250px;
       height: 250px;
       display: block;
@@ -79,6 +79,24 @@
       font-size: 0.92rem;
       font-weight: 680;
       color: #20242a;
+    }
+
+    .tk-link {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      color: #20242a;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .tk-link:hover {
+      text-decoration: underline;
+    }
+
+    .tk-link p {
+      margin: 0;
     }
   </style>
 </head>
@@ -98,5 +116,8 @@
       <span class="label">Puzzle</span>
     </a>
   </nav>
+  <a class="tk-link" href="https://github.com/tksoftw" target="_blank">
+    <p>made with 💗 by tk</p>
+  </a>
 </body>
 </html>
