@@ -106,17 +106,23 @@ body {
 
 .back-arrow {
   color: var(--muted);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
+  gap: 6px;
+  min-width: 30px;
   height: 30px;
   flex-shrink: 0;
   margin-right: auto;
+  font-size: 0.85rem;
+  text-decoration: none;
 }
 
 .back-arrow:hover { color: var(--accent); }
 .back-arrow svg { width: 16px; height: 16px; }
+
+/* Collapsed desktop rail is only 48px wide — show the icon alone there. */
+.app.left-collapsed .left .back-arrow span { display: none; }
 
 .app.left-collapsed .left .side-bar {
   flex-direction: column;
@@ -667,6 +673,9 @@ button.primary:hover {
      flip the toggle arrow direction to match that orientation. */
   .left .collapse-toggle svg { transform: scaleX(-1); }
   .left .collapse-toggle.collapsed svg { transform: none; }
+
+  /* The panel is full-width on mobile even when collapsed, so keep the label. */
+  .app.left-collapsed .left .back-arrow span { display: inline; }
 }
 
 /* ---- Win modal ---- */

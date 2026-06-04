@@ -107,19 +107,19 @@
 
     @media (max-width: 600px) {
     .corner {
-      right: 0;
+      left: 0;
       bottom: 60%;
-      flex-direction: row;
+      flex-direction: row-reverse;
       align-items: flex-start;
       gap: 4px;
       white-space: nowrap;
-      transform: rotate(-90deg);
-      transform-origin: bottom right;
+      transform: rotate(90deg) translateX(-10%);
+      transform-origin: bottom left;
     }
 
-    /* nudge only the js line up — increase to push it further from tk */
+    /* nudge only the js line up — more negative pushes it further from tk */
     .corner .js {
-      transform: translateX(10em);
+      transform: translateX(-10em);
     }
   }
   </style>
