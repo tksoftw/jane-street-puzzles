@@ -967,7 +967,7 @@ const Core = (function () {
         : null;
 
     // A clued cell's number is grey by default, green when the region matches the
-    // hint. "Show numbers" swaps the grey hint for the region's computed score;
+    // hint. "Show scores" swaps the grey hint for the region's computed score;
     // "invalidates" forces the hint back, shown yellow when it isn't met (and
     // green still wins when it is).
     if (clue !== null && state.showClues) {
@@ -977,7 +977,7 @@ const Core = (function () {
       return { text: String(clue), className: "" };
     }
 
-    // Un-clued cell: show the region's computed score only when "Show numbers" is on.
+    // Un-clued cell: show the region's computed score only when "Show scores" is on.
     if (state.showScores && hasScore) {
       return { text: String(region.score), className: "" };
     }
@@ -1364,6 +1364,7 @@ const Core = (function () {
 
   els.showScores.addEventListener("change", function () {
     state.showScores = els.showScores.checked;
+    els.svg.classList.toggle("compact-numbers", state.showScores);
     render();
   });
 

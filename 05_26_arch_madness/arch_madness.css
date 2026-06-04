@@ -447,6 +447,10 @@ button.primary:hover {
   user-select: none;
 }
 
+#gridSvg.compact-numbers .cell-label {
+  font-size: calc(var(--cell-label-size) / 1.5);
+}
+
 .cell-label.match {
   fill: var(--label-match);
   font-weight: 860;
