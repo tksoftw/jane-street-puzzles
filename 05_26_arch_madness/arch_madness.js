@@ -1433,6 +1433,15 @@ const Core = (function () {
   els.showScores.checked = state.showScores;
   els.showRegions.checked = state.showRegions;
   els.enforceClues.checked = state.enforceClues;
+
+  // On mobile, default the left options panel to collapsed (it can still be
+  // expanded with the existing collapse toggle).
+  if (window.matchMedia("(max-width: 720px)").matches) {
+    els.app.classList.add("left-collapsed");
+    els.collapseLeft.classList.add("collapsed");
+    els.collapseLeft.setAttribute("aria-label", "Expand left panel");
+  }
+
   els.winCta.addEventListener("click", function () {
     localStorage.removeItem("arcboard_mode");
   });
