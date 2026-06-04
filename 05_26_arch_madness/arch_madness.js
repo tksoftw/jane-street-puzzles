@@ -1,4 +1,4 @@
-// Arc Region Simulator — geometry/scoring engine plus UI, in one file.
+// Arc Madness Simulator — geometry/scoring engine plus UI, in one file.
 
 
 // The starting puzzle, loaded only on initial page load. This is the exact text
