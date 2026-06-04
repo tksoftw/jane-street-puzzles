@@ -24,14 +24,6 @@
           <h1>Arch Madness</h1>
         </div>
 
-        <section class="control">
-          <label for="sizeInput">Grid size</label>
-          <div class="row">
-            <input id="sizeInput" class="size-input" type="number" min="1" max="30" value="5">
-            <button id="resizeButton" class="primary" type="button">Build</button>
-          </div>
-        </section>
-
         <section>
           <h2>View</h2>
           <div class="toggle-row">
@@ -68,11 +60,34 @@
               <label>State</label>
               <div id="statePicker" class="state-picker"></div>
             </div>
-            <div class="control">
+            <div class="control" id="clueControl">
               <label for="selectedClueInput">Clue #</label>
               <input id="selectedClueInput" type="number" step="1" placeholder="empty">
             </div>
           </div>
+        </section>
+
+        <section>
+          <details class="custom" id="customSection">
+            <summary class="custom-summary">Custom</summary>
+            <div class="custom-body">
+              <div class="control">
+                <label for="sizeInput">Grid size</label>
+                <div class="row">
+                  <input id="sizeInput" class="size-input" type="number" min="1" max="30" value="5">
+                  <button id="resizeButton" class="primary" type="button">Build blank grid</button>
+                </div>
+              </div>
+              <div class="toggle-row">
+                <label for="editClues">Edit clues</label>
+                <input id="editClues" type="checkbox">
+              </div>
+              <div class="toggle-row">
+                <label for="editGreen">Add/remove green squares</label>
+                <input id="editGreen" type="checkbox">
+              </div>
+            </div>
+          </details>
         </section>
       </div>
     </aside>
@@ -115,7 +130,7 @@
       <h2 class="win-title">Congratulations!</h2>
       <p class="win-sub">you're the best :)</p>
       <a class="win-cta" href="arch_madness.html" id="winCta">
-        now take on the real thing
+        now take on the real challenge
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>
       </a>
     </div>

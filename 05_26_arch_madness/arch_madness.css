@@ -121,8 +121,8 @@ body {
 .back-arrow:hover { color: var(--accent); }
 .back-arrow svg { width: 16px; height: 16px; }
 
-/* Collapsed desktop rail is only 48px wide — show the icon alone there. */
-.app.left-collapsed .left .back-arrow span { display: none; }
+/* Collapsed desktop rail is only 48px wide — hide the back button entirely. */
+.app.left-collapsed .left .back-arrow { display: none; }
 
 .app.left-collapsed .left .side-bar {
   flex-direction: column;
@@ -196,6 +196,43 @@ h2 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #4b5662;
+}
+
+/* Collapsible "Custom" section — summary styled to match the h2 headers. */
+.custom-summary {
+  margin: 20px 0 10px;
+  font-size: 0.78rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4b5662;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-summary::-webkit-details-marker { display: none; }
+
+.custom-summary::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 140ms ease;
+}
+
+.custom[open] .custom-summary::before {
+  transform: rotate(45deg);
+}
+
+.custom-body {
+  display: grid;
+  gap: 4px;
 }
 
 .status-dot {
@@ -326,6 +363,12 @@ button.primary:hover {
 
 .selected-card {
   padding: 12px;
+}
+
+/* Green cells are locked unless green editing is on — grey out and disable. */
+.selected-card.locked {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .selected-title {
@@ -486,12 +529,15 @@ button.primary:hover {
 }
 
 .state-picker {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 6px;
 }
 
 .state-option {
+  /* 3 per row; a partial last row (e.g. when green is hidden) stays centered. */
+  flex: 0 0 calc((100% - 12px) / 3);
   display: grid;
   place-items: center;
   gap: 3px;
@@ -674,8 +720,8 @@ button.primary:hover {
   .left .collapse-toggle svg { transform: scaleX(-1); }
   .left .collapse-toggle.collapsed svg { transform: none; }
 
-  /* The panel is full-width on mobile even when collapsed, so keep the label. */
-  .app.left-collapsed .left .back-arrow span { display: inline; }
+  /* The panel is full-width on mobile even when collapsed, so keep the button. */
+  .app.left-collapsed .left .back-arrow { display: inline-flex; }
 }
 
 /* ---- Win modal ---- */

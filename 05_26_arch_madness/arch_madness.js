@@ -697,6 +697,8 @@ const Core = (function () {
     showScores: false,
     showRegions: false,
     enforceClues: false,
+    editClues: false,
+    editGreen: false,
     wonShown: false,
     analysis: null,
   };
@@ -709,9 +711,13 @@ const Core = (function () {
     showScores: document.getElementById("showScores"),
     showRegions: document.getElementById("showRegions"),
     enforceClues: document.getElementById("enforceClues"),
+    editClues: document.getElementById("editClues"),
+    editGreen: document.getElementById("editGreen"),
+    clueControl: document.getElementById("clueControl"),
     saveFile: document.getElementById("saveFile"),
     loadFile: document.getElementById("loadFile"),
     loadFileInput: document.getElementById("loadFileInput"),
+    selectedCard: document.querySelector(".selected-card"),
     selectedName: document.getElementById("selectedName"),
     selectedRegion: document.getElementById("selectedRegion"),
     statePicker: document.getElementById("statePicker"),
@@ -760,6 +766,8 @@ const Core = (function () {
   function buildStatePicker() {
     els.statePicker.innerHTML = "";
     CELL_STATES.forEach(function (opt) {
+      // Green is only an option when green editing is enabled in Custom.
+      if (opt.green && !state.editGreen) return;
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "state-option";
@@ -772,6 +780,8 @@ const Core = (function () {
       btn.addEventListener("click", function () {
         selectCell(state.selected.row, state.selected.col);
         const cell = state.cells[state.selected.row][state.selected.col];
+        // Green cells are locked while green editing is off.
+        if (!state.editGreen && cell.green) return;
         cell.green = opt.green;
         cell.arc = opt.arc;
         render();
@@ -1214,6 +1224,9 @@ const Core = (function () {
       record.labelRegion === null || record.labelRegion === undefined
         ? "R-"
         : "R" + (record.labelRegion + 1);
+    // A green cell can't be edited unless green editing is on, so grey the
+    // whole Selected card to signal it's locked.
+    els.selectedCard.classList.toggle("locked", cell.green && !state.editGreen);
     const activeKey = cell.green ? "green" : cell.arc || "empty";
     Array.from(els.statePicker.children).forEach(function (btn) {
       btn.classList.toggle("active", btn.getAttribute("data-key") === activeKey);
@@ -1258,10 +1271,14 @@ const Core = (function () {
   }
 
   function allCluesMatch(analysis) {
+    // A board with no clues isn't a solved puzzle (e.g. a freshly built blank
+    // grid), so require at least one clue before declaring victory.
+    let hasClue = false;
     for (let r = 0; r < analysis.size; r += 1) {
       for (let c = 0; c < analysis.size; c += 1) {
         const cell = state.cells[r][c];
         if (cell.number === null || cell.number === undefined) continue;
+        hasClue = true;
         const record = analysis.cells[r][c];
         const region =
           record.labelRegion === null || record.labelRegion === undefined
@@ -1270,7 +1287,7 @@ const Core = (function () {
         if (!region || region.score !== cell.number) return false;
       }
     }
-    return true;
+    return hasClue;
   }
 
   function renderSolution(analysis) {
@@ -1316,14 +1333,20 @@ const Core = (function () {
   function cycleCell(row, col) {
     selectCell(row, col);
     const cell = state.cells[row][col];
+    // With green editing off, green cells are locked and green is dropped from
+    // the cycle (clicking only moves through empty + the four arcs).
+    if (!state.editGreen && cell.green) {
+      render();
+      return;
+    }
     const states = [
       { green: false, arc: null },
       { green: false, arc: "tl" },
       { green: false, arc: "tr" },
       { green: false, arc: "br" },
       { green: false, arc: "bl" },
-      { green: true, arc: null },
     ];
+    if (state.editGreen) states.push({ green: true, arc: null });
     const next = states[(cellStateIndex(cell) + 1) % states.length];
     cell.green = next.green;
     cell.arc = next.arc;
@@ -1331,6 +1354,8 @@ const Core = (function () {
   }
 
   function makeGreen(row, col) {
+    // Right-click shortcut for green only works while green editing is on.
+    if (!state.editGreen) return;
     selectCell(row, col);
     const cell = state.cells[row][col];
     cell.green = true;
@@ -1376,6 +1401,27 @@ const Core = (function () {
   els.enforceClues.addEventListener("change", function () {
     state.enforceClues = els.enforceClues.checked;
     render();
+  });
+
+  // Reflect the Custom edit toggles into the editor: hide the clue input when
+  // clue editing is off, and rebuild the state picker so green appears only when
+  // green editing is on.
+  function applyEditModes() {
+    // Note: `.control` sets display:grid, which would override the [hidden]
+    // attribute, so toggle display directly instead.
+    els.clueControl.style.display = state.editClues ? "" : "none";
+    buildStatePicker();
+    render();
+  }
+
+  els.editClues.addEventListener("change", function () {
+    state.editClues = els.editClues.checked;
+    applyEditModes();
+  });
+
+  els.editGreen.addEventListener("change", function () {
+    state.editGreen = els.editGreen.checked;
+    applyEditModes();
   });
 
   els.saveFile.addEventListener("click", saveToFile);
@@ -1433,6 +1479,8 @@ const Core = (function () {
   els.showScores.checked = state.showScores;
   els.showRegions.checked = state.showRegions;
   els.enforceClues.checked = state.enforceClues;
+  els.editClues.checked = state.editClues;
+  els.editGreen.checked = state.editGreen;
 
   // On mobile, default the left options panel to collapsed (it can still be
   // expanded with the existing collapse toggle).
@@ -1445,6 +1493,5 @@ const Core = (function () {
   els.winCta.addEventListener("click", function () {
     localStorage.removeItem("arcboard_mode");
   });
-  buildStatePicker();
-  render();
+  applyEditModes();
 })();
