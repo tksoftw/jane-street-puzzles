@@ -87,6 +87,8 @@ body {
   border-color: var(--line);
   overflow: auto;
   position: relative;
+  /* Scale the side panels down ~10%, like Chrome's ctrl+-. */
+  zoom: 0.9;
 }
 
 .side-content {
@@ -492,7 +494,6 @@ button.primary:hover {
   stroke-width: var(--label-outline-size);
   stroke-linejoin: round;
   text-anchor: middle;
-  dominant-baseline: central;
   font-weight: 700;
   pointer-events: none;
   user-select: none;

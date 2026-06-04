@@ -1076,10 +1076,14 @@ const Core = (function () {
 
         const labelInfo = labelInfoForCell(record, analysis);
         if (labelInfo) {
+          // Center vertically with the alphabetic baseline + an em-based dy
+          // rather than dominant-baseline:central, which Safari and Chrome
+          // render at slightly different heights.
           svgEl("text", {
             class: "cell-label " + labelInfo.className,
             x: x + 0.5,
-            y: y + 0.52,
+            y: y + 0.5,
+            dy: "0.35em",
           }, labelLayer).textContent = labelInfo.text;
         }
 
