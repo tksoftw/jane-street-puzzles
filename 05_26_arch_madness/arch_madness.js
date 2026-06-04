@@ -694,7 +694,7 @@ const Core = (function () {
     cells: initialBoard.cells,
     selected: { row: 0, col: 0 },
     showClues: true,
-    showNumbers: false,
+    showScores: false,
     showRegions: false,
     enforceClues: false,
     wonShown: false,
@@ -706,7 +706,7 @@ const Core = (function () {
     sizeInput: document.getElementById("sizeInput"),
     resizeButton: document.getElementById("resizeButton"),
     showClues: document.getElementById("showClues"),
-    showNumbers: document.getElementById("showNumbers"),
+    showScores: document.getElementById("showScores"),
     showRegions: document.getElementById("showRegions"),
     enforceClues: document.getElementById("enforceClues"),
     saveFile: document.getElementById("saveFile"),
@@ -973,12 +973,12 @@ const Core = (function () {
     if (clue !== null && state.showClues) {
       if (hasScore && region.score === clue) return { text: String(clue), className: "match" };
       if (state.enforceClues) return { text: String(clue), className: "wrong" };
-      if (state.showNumbers && hasScore) return { text: String(region.score), className: "" };
+      if (state.showScores && hasScore) return { text: String(region.score), className: "" };
       return { text: String(clue), className: "" };
     }
 
     // Un-clued cell: show the region's computed score only when "Show numbers" is on.
-    if (state.showNumbers && hasScore) {
+    if (state.showScores && hasScore) {
       return { text: String(region.score), className: "" };
     }
     return null;
@@ -1362,8 +1362,8 @@ const Core = (function () {
     render();
   });
 
-  els.showNumbers.addEventListener("change", function () {
-    state.showNumbers = els.showNumbers.checked;
+  els.showScores.addEventListener("change", function () {
+    state.showScores = els.showScores.checked;
     render();
   });
 
@@ -1429,7 +1429,7 @@ const Core = (function () {
   // defaults set on `state` above (otherwise they always render unchecked).
   els.sizeInput.value = state.size;
   els.showClues.checked = state.showClues;
-  els.showNumbers.checked = state.showNumbers;
+  els.showScores.checked = state.showScores;
   els.showRegions.checked = state.showRegions;
   els.enforceClues.checked = state.enforceClues;
   els.winCta.addEventListener("click", function () {
