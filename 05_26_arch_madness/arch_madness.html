@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arc Region Simulator</title>
+  <link rel="stylesheet" href="./arch_madness.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="side left" id="leftPanel">
+      <div class="side-bar">
+        <a href="index.html" class="back-arrow" aria-label="Back to index">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10,3 5,8 10,13"/></svg>
+        </a>
+        <button class="collapse-toggle" id="collapseLeft" type="button" aria-label="Collapse left panel">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10,3 5,8 10,13"/></svg>
+        </button>
+        <span id="statusDot" class="status-dot" aria-hidden="true"></span>
+      </div>
+      <div class="side-content">
+        <div class="brand">
+          <h1>Arc Region Simulator</h1>
+        </div>
+
+        <section class="control">
+          <label for="sizeInput">Grid size</label>
+          <div class="row">
+            <input id="sizeInput" class="size-input" type="number" min="1" max="30" value="5">
+            <button id="resizeButton" class="primary" type="button">Build</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>View</h2>
+          <div class="toggle-row">
+            <label for="showClues">Show clues</label>
+            <input id="showClues" type="checkbox">
+          </div>
+          <div class="toggle-row">
+            <label for="showNumbers">Show numbers</label>
+            <input id="showNumbers" type="checkbox">
+          </div>
+          <div class="toggle-row">
+            <label for="showRegions">Show regions</label>
+            <input id="showRegions" type="checkbox">
+          </div>
+          <div class="toggle-row">
+            <label for="enforceClues">Clue conflicts invalidate board</label>
+            <input id="enforceClues" type="checkbox">
+          </div>
+          <div class="button-stack">
+            <button id="saveFile" type="button">Save to File</button>
+            <button id="loadFile" type="button">Load from File</button>
+          </div>
+          <input id="loadFileInput" type="file" accept=".arcboard" hidden>
+        </section>
+
+        <section>
+          <h2>Selected</h2>
+          <div class="selected-card">
+            <div class="selected-title">
+              <span id="selectedName">Cell</span>
+              <span id="selectedRegion" class="cell-chip">R-</span>
+            </div>
+            <div class="control">
+              <label>State</label>
+              <div id="statePicker" class="state-picker"></div>
+            </div>
+            <div class="control">
+              <label for="selectedClueInput">Clue #</label>
+              <input id="selectedClueInput" type="number" step="1" placeholder="empty">
+            </div>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <main class="board-shell">
+      <div class="board-wrap">
+        <div class="board-frame">
+          <svg id="gridSvg" role="img" aria-label="Arc puzzle grid"></svg>
+        </div>
+        <div id="solution" class="solution"></div>
+      </div>
+    </main>
+
+    <aside class="side right" id="rightPanel">
+      <div class="side-bar">
+        <button class="collapse-toggle" id="collapseRight" type="button" aria-label="Collapse right panel">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>
+        </button>
+      </div>
+      <div class="side-content">
+        <section>
+          <div class="status-line">
+            <span id="statusWord" class="status-word">Not valid</span>
+            <span id="regionCount" class="summary">0 regions</span>
+          </div>
+          <div id="statusSummary" class="summary"></div>
+          <div id="issueList" class="issue-list"></div>
+        </section>
+
+        <section id="regionsPanel">
+          <h2>Regions</h2>
+          <div id="regionList" class="region-list"></div>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <div id="winModal" class="win-modal" hidden>
+    <div class="win-box">
+      <h2 class="win-title">Congratulations!</h2>
+      <p class="win-sub">you're the best :)</p>
+      <a class="win-cta" href="arch_madness.html" id="winCta">
+        now take on the real thing
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="./arch_madness.js"></script>
+</body>
+</html>
