@@ -660,6 +660,11 @@ button.primary:hover {
   .board-frame {
     width: min(94vw, 94vh);
   }
+
+  /* On mobile the left panel stacks vertically and defaults to collapsed, so
+     flip the toggle arrow direction to match that orientation. */
+  .left .collapse-toggle svg { transform: scaleX(-1); }
+  .left .collapse-toggle.collapsed svg { transform: none; }
 }
 
 /* ---- Win modal ---- */
