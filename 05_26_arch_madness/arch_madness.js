@@ -1282,7 +1282,7 @@ const Core = (function () {
     }
     const solved = allCluesMatch(analysis);
     els.solution.className = "solution" + (solved ? " solved" : "");
-    els.solution.textContent = "solution: " + result.total;
+    els.solution.textContent = "solution: " + result.total.toLocaleString();
     if (solved && isTutorial && !state.wonShown) {
       state.wonShown = true;
       els.winModal.hidden = false;
