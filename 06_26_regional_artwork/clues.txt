@@ -1,0 +1,40 @@
+All clues started with an A and ended with an I.
+
+Answers to clues:
+1. Ali
+2. Alumni
+3. AI 
+4. Amazing Randi
+5. Antonio Salieri
+6. AKHI
+7. Act II
+8. Act IV Scene I
+9. Afghani
+10. Amerigo Vespucci
+11. Aquemini
+12. Artemis II
+13. Anno Domini
+14. Alpha Centauri
+
+Sorted clues:
+1. AI               (Length 2)  (Distance 2) -> I
+2. Ali              (Length 3)  (Distance 1) -> A
+3. AKHI             (Length 4)  (Distance 3) -> H
+4. ActII            (Length 5)  (Distance 3) -> T
+5. Alumni           (Length 6)  (Distance 3) -> U
+6. Afghani          (Length 7)  (Distance 3) -> G
+7. Aquemini         (Length 8)  (Distance 4) -> E
+8. ArtemisII        (Length 9)  (Distance 4) -> E
+9. AnnoDomini       (Length 10) (Distance 4) -> O
+10. ActIVSceneI     (Length 11) (Distance 2) -> C
+11. AmazingRandi    (Length 12) (Distance 7) -> G
+12. AlphaCentauri   (Length 13) (Distance 2) -> L
+13. AntonioSalieri  (Length 14) (Distance 8) -> S
+14. AmerigoVespucci (Length 15) (Distance 4) -> R
+
+by lengths: 7 8 10 15 12 9 13 6 11 3 14 4 2 5
+            G E O  R  G  E L  U C  A S  H I T
+
+final clue: GEORGE LUCAS HIT (also starts and ends with AI)
+
+answer: American Graffiti
